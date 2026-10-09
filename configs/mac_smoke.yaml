@@ -1,0 +1,15 @@
+# Phase 0: validate the whole training path on an Apple Silicon Mac (MPS) with the prepared MediaSpeech shards.
+run_dir: runs/mac_smoke
+data: [data/prepared/mediaspeech_tr]
+steps: 20000
+lr: 3.0e-4
+warmup: 500
+max_frames: 3000        # ~2 min of audio per batch fits 16 GB unified memory
+max_letters: 2400
+workers: 4
+device: mps
+precision: fp32
+ckpt_every_steps: 500
+ckpt_every_minutes: 10
+log_every: 25
+sample_every: 1000

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Okur · Türkçeyi yazıldığı gibi okur</title>
+  <meta name="description" content="Tarayıcında çalışan, açık kaynaklı Türkçe seslendirme modeli. Sayıları, sıra sayılarını ve şapkalı harfleri doğru okur.">
+  <meta name="theme-color" content="#ecedea">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/fonts/CourierPrime-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+</head>
+<body>
+  <a class="skip" href="#text" data-i18n="nav.try">Dene</a>
+  <header class="cover">
+    <a class="plate" href="#try" aria-label="Okur">Okur</a>
+    <nav aria-label="Bölümler">
+      <a class="keycap" href="#hard" data-i18n="nav.hard">Örnek cümleler</a>
+      <a class="keycap" href="#numbers" data-i18n="nav.numbers">Ölçümler</a>
+      <a class="keycap" href="#how" data-i18n="nav.how">Nasıl çalışır</a>
+      <a class="keycap" href="#code" data-i18n="nav.code">Kod ve model</a>
+    </nav>
+    <button class="lever" id="lang" type="button" role="switch" aria-checked="false" data-i18n-attr="aria-label:lang.switch" aria-label="Dili değiştir: English">
+      <span class="lever-label">TR</span><span class="lever-track" aria-hidden="true"><span class="lever-knob"></span></span><span class="lever-label">EN</span>
+    </button>
+  </header>
+
+  <main>
+    <section class="machine" id="try" aria-labelledby="hero-title">
+      <div class="platen" aria-hidden="true"></div>
+      <div class="sheet hero-sheet">
+        <h1 id="hero-title" data-i18n="hero.title">Okur, Türkçeyi yazıldığı gibi okur.</h1>
+        <div class="typed">
+          <label class="label" for="text" data-i18n="input.label">Senin yazdığın</label>
+          <textarea id="text" rows="2" spellcheck="false" lang="tr">Bu konuyla alakalı olarak şirketin karı hala artıyor; yeni ofis 3. katta açılacak.</textarea>
+          <div class="examples" id="examples"><span class="label-inline" data-i18n="examples.label">Örnekler:</span></div>
+          <div class="label reading-label" data-i18n="reading.label">Okur’un okuduğu</div>
+          <p class="reading" id="reading" lang="tr"><span class="placeholder" data-i18n="reading.empty">OKU’ya bastığında, okunan metin sesle birlikte buraya yazılır.</span></p>
+          <p class="legend" data-i18n="reading.legend">Kırmızıyla işaretli yerleri Okur yazıldığından farklı okur: şapkalı harfler, sayılar, kısaltmalar.</p>
+        </div>
+      </div>
+      <div class="panel">
+        <button class="key-oku" id="speak" type="button" disabled>
+          <svg class="glyph" viewBox="0 0 12 12" aria-hidden="true"><path class="g-play" d="M2 1 L11 6 L2 11 Z"/><rect class="g-stop" x="2" y="2" width="8" height="8"/></svg>
+          <span id="speak-label" data-i18n="key.read">Oku</span>
+        </button>
+        <a class="keycap key-download" id="download" download="okur.wav" hidden>
+          <svg class="glyph" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.5 V7.5 M3.5 5 L6 7.5 L8.5 5 M2 9.5 V10.5 H10 V9.5"/></svg>
+          <span id="download-label">WAV indir</span>
+        </a>
+        <div class="speed" role="radiogroup" data-i18n-attr="aria-label:speed.label" aria-label="Hız">
+          <button type="button" role="radio" aria-checked="false" data-speed="0.85" data-i18n="key.slow">Yavaş</button>
+          <button type="button" role="radio" aria-checked="true" data-speed="1" data-i18n="key.normal">Normal</button>
+          <button type="button" role="radio" aria-checked="false" data-speed="1.15" data-i18n="key.fast">Hızlı</button>
+        </div>
+        <button class="keycap" id="vary" type="button" disabled data-i18n="key.take" data-i18n-attr="title:key.take.title" title="Aynı metni başka bir tonlamayla oku">Bir daha oku</button>
+        <p class="tag" id="status" role="status" aria-live="polite"><span class="feed" id="feed" aria-hidden="true"></span><span id="status-text" data-i18n="status.first">Model indiriliyor (24 MB, yalnızca ilk ziyarette)…</span></p>
+      </div>
+      <details class="drawer" id="advanced">
+        <summary class="keycap drawer-key"><span data-i18n="adv.title">Gelişmiş ayarlar</span></summary>
+        <div class="drawer-body">
+          <label class="ctl" for="opt-speed"><span class="ctl-name" data-i18n="adv.speed">Hız</span>
+            <input type="range" id="opt-speed" min="0.7" max="1.4" step="0.05"><output id="out-speed" for="opt-speed"></output></label>
+          <label class="ctl" for="opt-pause"><span class="ctl-name" data-i18n="adv.pause">Duraklama uzunluğu</span>
+            <input type="range" id="opt-pause" min="0.5" max="2" step="0.1"><output id="out-pause" for="opt-pause"></output>
+            <span class="ctl-hint" data-i18n="adv.pause.hint">Yalnız boşluk ve noktalama; konuşma hızı aynı kalır.</span></label>
+          <label class="ctl" for="opt-gap"><span class="ctl-name" data-i18n="adv.gap">Cümle arası sessizlik</span>
+            <input type="range" id="opt-gap" min="0" max="1" step="0.05"><output id="out-gap" for="opt-gap"></output>
+            <span class="ctl-hint" data-i18n="adv.gap.hint">Uzun metinlerde cümlelerin arasına eklenir.</span></label>
+          <label class="ctl" for="opt-temp"><span class="ctl-name" data-i18n="adv.temp">İfade gücü</span>
+            <input type="range" id="opt-temp" min="0.6" max="1" step="0.05"><output id="out-temp" for="opt-temp"></output>
+            <span class="ctl-hint" data-i18n="adv.temp.hint">Gürültü sıcaklığı. Düşük değer daha düz ama daha kararlı; model 1,0 ile eğitildi.</span></label>
+          <label class="ctl" for="opt-seed"><span class="ctl-name" data-i18n="adv.seed">Tohum</span>
+            <input type="number" id="opt-seed" min="0" max="999999" step="1" inputmode="numeric">
+            <span class="ctl-hint" data-i18n="adv.seed.hint">Aynı tohum ve ayarlar aynı okumayı verir; paylaşılabilir.</span></label>
+          <label class="ctl" for="opt-format"><span class="ctl-name" data-i18n="adv.format">Dışa aktarma</span>
+            <select id="opt-format">
+              <option value="wav">WAV · 48 kHz</option>
+              <option value="mp3-48">MP3 · 48 kHz</option>
+              <option value="mp3-24">MP3 · 24 kHz</option>
+              <option value="mp3-16">MP3 · 16 kHz</option>
+            </select></label>
+          <label class="ctl ctl-wide" for="opt-dict"><span class="ctl-name" data-i18n="adv.dict">Söyleniş sözlüğü</span>
+            <textarea id="opt-dict" rows="3" spellcheck="false" data-i18n-attr="placeholder:adv.dict.placeholder" placeholder="NATO = nato&#10;Ankaray = ankaray"></textarea>
+            <span class="ctl-hint" data-i18n="adv.dict.hint">Her satıra bir kural: yazılış = okunuş. Ön işleyiciden önce uygulanır; adlar, markalar ve kısaltmalar için.</span></label>
+          <button type="button" class="keycap drawer-reset" id="opt-reset" data-i18n="adv.reset">Varsayılanlar</button>
+        </div>
+      </details>
+      <p class="facts" id="facts"><span><b>9,8 M</b> <span data-i18n="facts.params">parametre</span> <span class="facts-split">(6,8 M + 3,0 M)</span></span><span><b>4</b> <span data-i18n="facts.steps">adım</span></span><span><b>48 kHz</b></span><span><b>24 MB</b> <span data-i18n="facts.model">model</span></span><span data-i18n="facts.open">açık kaynak</span></p>
+    </section>
+
+    <section class="band" id="hard" aria-labelledby="hard-title">
+      <h2 id="hard-title" data-i18n="hard.title">Örnek cümleler</h2>
+      <p class="band-lede" data-i18n="hard.lede">Aynı cümleler, dört açık model, ses seviyeleri eşitlenmiş.</p>
+      <ol class="cards" id="samples"><li class="loading" data-i18n="hard.loading">Örnekler yükleniyor…</li></ol>
+      <button class="keycap more" id="more" type="button" aria-controls="samples" aria-expanded="false" hidden>16 cümlenin tamamını göster</button>
+    </section>
+
+    <section class="band" id="numbers" aria-labelledby="numbers-title">
+      <h2 id="numbers-title" data-i18n="numbers.title">Ölçümler</h2>
+      <p class="band-lede" data-i18n="numbers.lede">Freya-TR-Eval’in 495 Türkçe cümlesi.</p>
+      <div class="sheet ledger">
+        <div class="table-scroll">
+          <table id="metrics">
+            <thead><tr>
+              <th scope="col" data-i18n="numbers.system">Sistem</th>
+              <th scope="col" class="num" data-i18n="numbers.size">Boyut</th>
+              <th scope="col" class="num">UTMOS</th>
+              <th scope="col" class="num" data-i18n="numbers.wer">WER</th>
+              <th scope="col" class="num" data-i18n="numbers.werClean">Temiz WER</th>
+              <th scope="col" class="num" data-i18n="numbers.cerClean">Temiz CER</th>
+              <th scope="col" class="num" data-i18n="numbers.speed">Hız</th>
+              <th scope="col" data-i18n="numbers.license">Lisans</th>
+            </tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="honest note-reported" data-i18n="numbers.reportedNote"></p>
+        <p class="honest" data-i18n="numbers.honest">Okur bu dört sistemin en az doğal olanı.</p>
+      </div>
+    </section>
+
+    <section class="band" id="how" aria-labelledby="how-title">
+      <h2 id="how-title" data-i18n="how.title">Nasıl çalışır</h2>
+      <p class="band-lede" data-i18n-html="how.lede">Sıfırdan eğitilmiş bir hat.</p>
+      <figure class="figure">
+        <div class="fig-frame" id="fig-pipeline"></div>
+        <figcaption data-i18n-html="how.fig1"></figcaption>
+      </figure>
+      <figure class="figure">
+        <div class="fig-frame" id="fig-dit"></div>
+        <figcaption data-i18n-html="how.fig2"></figcaption>
+      </figure>
+    </section>
+
+    <section class="band" id="code" aria-labelledby="code-title">
+      <h2 id="code-title" data-i18n="code.title">Kod ve model</h2>
+      <p class="band-lede" data-i18n="code.lede">Veri, eğitim kodu, değerlendirme ve ağırlıklar açık.</p>
+      <div class="sheets">
+        <div class="sheet note">
+          <h3 data-i18n="code.install">Kur ve konuştur</h3>
+          <pre><code>uv sync
+uv run okur say "Toplantı 3. katta, saat 09:30'da." \
+  --model release --out ses.wav</code></pre>
+          <h3 data-i18n="code.cite">Atıf</h3>
+          <pre><code>@software{besel2026okur,
+  author  = {Be{\c{s}}el, Ahmet Hakan},
+  title   = {Okur: a small, open {Turkish}
+             text-to-speech model that
+             runs in the browser},
+  year    = {2026},
+  version = {1.0.0},
+  url     = {https://github.com/ahmethakanbesel/okur-tts}
+}</code></pre>
+          <h3 data-i18n="code.links">Bağlantılar</h3>
+          <p id="links"><a href="https://github.com/ahmethakanbesel/okur-tts">GitHub</a> <a href="https://huggingface.co/ahakan/okur-tts">Hugging Face</a> <a href="https://huggingface.co/spaces/ahakan/okur-tts">Demo (Space)</a></p>
+        </div>
+        <div class="sheet note">
+          <h3 data-i18n="code.data">Veri</h3><p data-i18n="code.data.d"></p>
+          <h3 data-i18n="code.license">Lisans</h3><p data-i18n="code.license.d"></p>
+        </div>
+        <div class="sheet note">
+          <h3 data-i18n="code.limits">Sınırlar</h3><p data-i18n="code.limits.d"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><p data-i18n-html="footer.normalizer"></p><p data-i18n="footer.credits"></p></footer>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

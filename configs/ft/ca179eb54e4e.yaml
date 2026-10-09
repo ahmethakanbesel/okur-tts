@@ -1,0 +1,17 @@
+# Fine-tune the multi-speaker teacher on one Common Voice speaker (single target voice candidate).
+run_dir: runs/ft_ca179eb54e4e
+data: [data/prepared/commonvoice_tr]
+init_from: runs/teacher/checkpoints/step-00120000.pt
+only_speakers: ["cv:ca179eb54e4e"]
+sample_speaker: "cv:ca179eb54e4e"
+steps: 3000
+lr: 1.0e-4
+warmup: 100
+max_frames: 8000
+max_letters: 6000
+workers: 8
+device: cuda
+precision: bf16
+ckpt_every_steps: 1000
+log_every: 250
+sample_every: 1000

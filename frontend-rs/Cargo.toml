@@ -1,0 +1,29 @@
+[package]
+name = "okur-frontend"
+version = "1.0.0"
+edition = "2024"
+rust-version = "1.94"
+license = "Apache-2.0"
+description = "Turkish TTS text frontend: written Turkish in, the model's letters out. Same output as okur.frontend (Python)."
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[[bin]]
+name = "okur-frontend"
+required-features = ["cli"]
+
+[features]
+cli = ["dep:serde_json"]
+
+[dependencies]
+normalizer-tr = "=0.4.0"
+unicode-normalization = "0.1.25"
+serde_json = { version = "1", optional = true }
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true

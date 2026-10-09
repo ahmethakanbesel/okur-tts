@@ -1,0 +1,25 @@
+# Phase 3: acoustic teacher, multi-speaker pretraining on all prepared open data (RTX 5090, or several GPUs).
+# Speed settings are confirmed by `okur bench` in the first minutes on the machine; adjust from its table.
+run_dir: runs/teacher
+data:
+  - data/prepared/commonvoice_tr
+  - data/prepared/issai_tsc
+  - data/prepared/fleurs_tr
+  - data/prepared/mediaspeech_tr
+steps: 120000             # upper bound; early stopping on CER usually ends sooner
+lr: 4.5e-4                # 3e-4 scaled by sqrt(2.5) for the 2.5x larger batch
+warmup: 2000
+max_frames: 40000         # per GPU: 1,600 s of audio per step (32 GB card)
+max_letters: 30000
+workers: 8
+device: cuda
+precision: bf16
+latents_on_device: false  # bench on the 5090: host latents 24.3k audio-s/s vs 18.4k on device + padding
+pad_frames: 1
+pad_letters: 1
+compile: false            # bench: variable batch shapes recompile constantly (1.5k audio-s/s)
+ckpt_every_steps: 2000
+ckpt_every_minutes: 15
+log_every: 100
+sample_every: 5000
+early_stop_patience: 0    # off: CER on 6 sentences is too noisy near a ~2% floor to stop on (Phase 3 run)

@@ -1,0 +1,11 @@
+# Phase 0: check the decoder GAN learns on real audio on Apple Silicon (short run).
+run_dir: runs/mac_decoder_smoke
+data: [data/prepared/mediaspeech_tr]
+steps: 300
+batch: 8
+segment_frames: 32
+mel_only_steps: 150
+workers: 2
+device: mps
+ckpt_every_steps: 150
+log_every: 25

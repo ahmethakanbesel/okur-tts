@@ -1,0 +1,82 @@
+[
+ {
+  "id": "circumflex-marked",
+  "category": "Circumflex",
+  "text": "Bu konuyla alâkalı olarak şirketin kârı hâlâ artıyor."
+ },
+ {
+  "id": "circumflex-plain",
+  "category": "Circumflex (typed without ^)",
+  "text": "Bu konuyla alakalı olarak şirketin karı hala artıyor."
+ },
+ {
+  "id": "kar-snow-profit",
+  "category": "Homograph: kar / kâr",
+  "text": "Dün gece çok kar yağdı ama şirketin bu çeyrekteki karı yine de arttı."
+ },
+ {
+  "id": "hala-aunt-still",
+  "category": "Homograph: hala / hâlâ",
+  "text": "Halam hala bizimle yaşıyor, kuzenim ise hala kızı olduğunu unutmuş."
+ },
+ {
+  "id": "ordinals",
+  "category": "Ordinals",
+  "text": "Toplantı 3. katta, 2. koridorun sonundaki 15. odada yapılacak."
+ },
+ {
+  "id": "numbers-money",
+  "category": "Numbers, money, percent",
+  "text": "Enflasyon yüzde 3,5 artınca fiyat 1.250,75 TL'ye çıktı."
+ },
+ {
+  "id": "date-time",
+  "category": "Date and time",
+  "text": "Sınav 14 Mart 2026 Cumartesi günü saat 09:30'da başlayacak."
+ },
+ {
+  "id": "agglutination",
+  "category": "Long agglutinative word",
+  "text": "Çekoslovakyalılaştıramadıklarımızdanmışsınız gibi uzun kelimeler bile okunabilmeli."
+ },
+ {
+  "id": "tongue-twister",
+  "category": "Tongue twister",
+  "text": "Şu köşe yaz köşesi, şu köşe kış köşesi, ortada su şişesi."
+ },
+ {
+  "id": "question",
+  "category": "Question intonation",
+  "text": "Yarın sabah erkenden yola çıkacak mıyız, yoksa öğleden sonrayı mı bekleyeceğiz?"
+ },
+ {
+  "id": "proper-names",
+  "category": "Proper names and apostrophes",
+  "text": "İstanbul'dan Ankara'ya giderken Bolu Dağı'nda mola verdik."
+ },
+ {
+  "id": "soft-g",
+  "category": "Soft g and vowel harmony",
+  "text": "Ağaçtaki yaprağı rüzgar savurdu, dağdaki çoban sağa sola baktı."
+ },
+ {
+  "id": "loanwords",
+  "category": "Loanwords",
+  "text": "Bilgisayarın yazılımını güncelledikten sonra internet bağlantısı düzeldi."
+ },
+ {
+  "id": "long",
+  "category": "Long sentence",
+  "text": "Bilim insanları, iklim değişikliğinin önümüzdeki on yıllarda tarım, su kaynakları ve kıyı kentleri üzerinde ciddi etkiler yaratacağını, bu nedenle hemen harekete geçilmesi gerektiğini vurguluyor."
+ },
+ {
+  "id": "dialogue",
+  "category": "Exclamation and quotes",
+  "text": "\"Hemen gel!\" diye bağırdı; ama kimse onu duymadı."
+ },
+ {
+  "id": "mekan-mekanik",
+  "category": "Exceptions (mekân vs mekanik)",
+  "text": "Bu mekanın mekanik aksamı yenilendi, kaset çalar ise kafileyle geldi."
+ }
+]

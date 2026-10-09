@@ -1,0 +1,72 @@
+[project]
+name = "okur"
+version = "1.0.0"
+description = "Small, fast Turkish text to speech trained on open data"
+requires-python = ">=3.13,<3.14"
+license = "Apache-2.0"
+dependencies = [
+    "beartype>=0.22",
+    "cyclopts>=5.2.0",
+    "jaxtyping>=0.3.11",
+    "normalizer-tr>=0.4,<0.5",
+    "numpy>=2.2",
+    "onnxruntime>=1.30",
+    "pydantic>=2.13",
+    "pyyaml>=6.0",
+    "safetensors>=0.8",
+    "torch>=2.14",
+]
+
+[project.urls]
+Homepage = "https://huggingface.co/spaces/ahakan/okur-tts"
+Repository = "https://github.com/ahmethakanbesel/okur-tts"
+Model = "https://huggingface.co/ahakan/okur-tts"
+
+[project.scripts]
+okur = "okur.cli:main"
+
+[dependency-groups]
+dev = ["hypothesis>=6.168", "pyright>=1.1.414", "pytest>=9", "ruff>=0.14"]
+data = ["accelerate>=1.10", "diffusers>=0.36", "pyarrow>=25", "soundfile>=0.13", "soxr>=1.0", "transformers>=4.57"]
+mlx = ["mlx>=0.32.3"]
+export = [
+    "coremltools>=9.0",
+    "onnx>=1.19",
+    "onnxscript>=0.7.2",
+]
+demo = ["ema-lightning>=1.0.1", "gradio>=6.29.1"]
+
+[tool.uv]
+default-groups = ["dev", "data", "mlx", "demo"]
+
+[build-system]
+requires = ["uv_build>=0.9,<0.13"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF", "PL", "N"]
+ignore = ["PLR0913", "PLR2004", "F722", "N812", "PLC0415", "RUF001", "RUF002", "RUF003", "PLR0915", "PLR0912", "PLR0917", "PLR0914"]  # F722: jaxtyping shapes; PLC0415: heavy deps load lazily; RUF00x: Turkish letters
+
+[tool.ruff.lint.per-file-ignores]
+"tests/test_mlx.py" = ["E402"]  # skip the module before importing MLX on non-Apple machines
+
+[tool.pyright]
+include = ["src", "tests"]
+typeCheckingMode = "strict"
+pythonVersion = "3.13"
+reportMissingTypeStubs = false
+reportUnknownMemberType = false
+reportUnknownArgumentType = false
+reportUnknownVariableType = false
+reportUnknownParameterType = false
+reportMissingParameterType = false
+reportPrivateUsage = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = ["slow: needs downloaded models or data"]

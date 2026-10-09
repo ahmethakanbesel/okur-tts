@@ -1,0 +1,21 @@
+# DMD2 v2c: v2a settings, 9k steps: gentler student, faster fake model, frequent checkpoints; choose by Freya WER.
+run_dir: runs/distill_v2c
+data: [data/prepared/commonvoice_tr]
+teacher: runs/ft_ca179eb54e4e/checkpoints/step-00003000.pt
+only_speakers: ["cv:ca179eb54e4e"]
+sample_speaker: "cv:ca179eb54e4e"
+steps: 9000
+fake_ratio: 5
+real_guidance: 3.0
+lr: 5.0e-6
+fake_lr: 2.0e-5
+warmup: 100
+max_frames: 8000
+max_letters: 6000
+workers: 8
+device: cuda
+precision: bf16
+ckpt_every_steps: 1500
+keep_checkpoints: 10
+log_every: 250
+sample_every: 1500

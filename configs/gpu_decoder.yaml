@@ -1,0 +1,23 @@
+# Phase 2: latent-to-audio decoder GAN on the prepared shards' real audio.
+# EMA Lightning's own decoder checkpoint is at step 27,500; 100k is a generous ceiling. Pick the final checkpoint by
+# listening to samples/ (held-out clips decoded every sample_every steps), not by step count.
+run_dir: runs/decoder
+data:
+  - data/prepared/commonvoice_tr
+  - data/prepared/issai_tsc
+  - data/prepared/fleurs_tr
+  - data/prepared/mediaspeech_tr
+steps: 110000             # extended again: Freya WER still falling at 70k (1.62% at 40k → 1.53% at 70k)
+batch: 16                 # 32 needs >32 GB once the discriminators start (OOM on the 5090)
+segment_frames: 32
+mel_only_steps: 5000
+workers: 8
+device: cuda
+precision: bf16
+compile: true
+sample_every: 5000
+val_clips: 4
+ckpt_every_steps: 5000
+ckpt_every_minutes: 15
+log_every: 200
+keep_checkpoints: 20      # keep the history: the best-sounding checkpoint may not be the last

@@ -1,0 +1,39 @@
+/* Keycaps: the machine's keys. Their inset bottom edge is the key's physical depth and shrinks when pressed. */
+
+.keycap {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 40px;
+  font: 650 12.5px/1 var(--sans); font-stretch: 82%; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--legend); background: var(--key); border: 0; border-radius: 8px; padding: 11px 14px;
+  text-decoration: none; cursor: pointer; white-space: nowrap;
+  box-shadow: inset 0 -3px 0 #000, inset 0 1px 0 rgb(255 255 255 / 0.12), 0 3px 6px rgb(0 0 0 / 0.35);
+  transition: transform 120ms var(--ease), box-shadow 120ms var(--ease);
+}
+.keycap:hover { background: #262928; }
+.keycap:active { transform: translateY(2px); box-shadow: inset 0 -1px 0 #000, 0 1px 2px rgb(0 0 0 / 0.35); }
+.keycap:disabled { cursor: progress; opacity: 0.55; }
+.key-oku {
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-width: 148px; min-height: 58px;
+  font: 800 20px/1 var(--sans); font-stretch: 75%; letter-spacing: 0.2em; text-transform: uppercase;
+  color: #fff; background: var(--red); border: 0; border-radius: 12px; padding: 0 28px; cursor: pointer;
+  box-shadow: inset 0 -5px 0 var(--red-deep), inset 0 1px 0 rgb(255 255 255 / 0.3), 0 5px 9px rgb(0 0 0 / 0.45);
+  transition: transform 120ms var(--ease), box-shadow 120ms var(--ease), filter 120ms;
+}
+.key-oku:hover:not(:disabled) { filter: brightness(1.06); }
+.key-oku:active:not(:disabled) { transform: translateY(3px); box-shadow: inset 0 -2px 0 var(--red-deep), 0 2px 3px rgb(0 0 0 / 0.45); }
+.key-oku:disabled { cursor: progress; background: #6d4a50; box-shadow: inset 0 -5px 0 #3d2a2d, 0 5px 9px rgb(0 0 0 / 0.35); }
+.play .cap {
+  flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 7px; background: var(--key);
+  box-shadow: inset 0 -2px 0 #000, 0 2px 3px rgb(0 0 0 / 0.25); transition: transform 120ms var(--ease);
+}
+.system.ours .play .cap { background: var(--red); box-shadow: inset 0 -2px 0 var(--red-deep), 0 2px 3px rgb(0 0 0 / 0.25); }
+
+@media (max-width: 760px) {
+  .key-oku { flex: 1 1 auto; min-height: 42px; min-width: 0; padding: 0 16px; font-size: 17px; }
+}
+
+.key-download { gap: 8px; min-height: 58px; padding: 0 18px; }
+.key-download .glyph { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+@media (max-width: 760px) {
+  .key-download { min-height: 42px; padding: 0 12px; }
+}

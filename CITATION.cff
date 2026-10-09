@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use Okur, please cite it as below."
+type: software
+title: "Okur: a small, open Turkish text-to-speech model that runs in the browser"
+abstract: >-
+  A 9.8 M-parameter Turkish text-to-speech model (6.8 M acoustic model, 3.0 M decoder) trained from scratch on
+  298 hours of openly licensed speech. A Rust/WebAssembly text frontend spells out numbers, reads ordinals and restores
+  circumflexes; a flow-matching DiT distilled to 4 steps with DMD2 generates 25 Hz latents decoded to 48 kHz audio.
+authors:
+  - family-names: "Beşel"
+    given-names: "Ahmet Hakan"
+version: "1.0.0"
+date-released: "2026-10-09"
+license: Apache-2.0
+repository-code: "https://github.com/ahmethakanbesel/okur-tts"
+url: "https://huggingface.co/spaces/ahakan/okur-tts"
+keywords:
+  - text-to-speech
+  - Turkish
+  - flow matching
+  - DMD2
+  - WebAssembly
